@@ -3,7 +3,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.*;
 
-import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -12,8 +13,8 @@ public class MarsRoverShould {
 
     @ParameterizedTest
     @MethodSource("providerGridWithObstacles")
-    public void stop_when_bumping_into_obstacles(ArrayList obstaclePositions, String expectedOutput, String commands) {
-        MarsRover marsRover = new MarsRover(new Grid(), obstaclePositions);
+    public void stop_when_bumping_into_obstacles(List obstaclePositions, String expectedOutput, String commands) {
+        MarsRover marsRover = new MarsRover(new Grid(obstaclePositions));
         assertEquals(expectedOutput, marsRover.execute(commands));
     }
     @ParameterizedTest
@@ -30,12 +31,9 @@ public class MarsRoverShould {
     }
 
     public static Stream<Arguments> providerGridWithObstacles() {
-        ArrayList obstaclePositions = new ArrayList();
-        obstaclePositions.add(new Position(0, 3));
-
         return Stream.of(
-                Arguments.of(obstaclePositions, "2:1:E", "MRMM"),
-                Arguments.of(obstaclePositions, "O:0:2:N", "MMMM")
+                Arguments.of(Arrays.asList(new Position(0, 3)), "2:1:E", "MRMM"),
+                Arguments.of(Arrays.asList(new Position(0, 3)), "O:0:2:N", "MMMM")
         );
     }
 

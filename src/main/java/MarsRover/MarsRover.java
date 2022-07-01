@@ -78,12 +78,14 @@ public class MarsRover {
     }
 
     private void move() throws ObstacleFoundException {
-        switch (currentDirection) {
-            case NORTH -> moveNorth();
-            case SOUTH -> moveSouth();
-            case EAST -> moveEast();
-            case WEST -> moveWest();
+        Position nextPosition = grid.getNextPosition(currentPosition, currentDirection);
+
+        if (grid.isObstacle(nextPosition)) {
+
+            throw new ObstacleFoundException();
         }
+
+        currentPosition = nextPosition;
     }
 
     public boolean isObstacle(Position newPosition) {
