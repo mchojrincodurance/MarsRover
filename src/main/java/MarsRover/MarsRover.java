@@ -1,5 +1,7 @@
 package MarsRover;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 
 public class MarsRover {
@@ -15,10 +17,15 @@ public class MarsRover {
     private ArrayList obstaclePositions;
 
     public MarsRover(ArrayList obstaclePositions) {
-        currentPosition = new Position(0, 0);
+        currentPosition = getInitialPosition();
         currentDirection = Direction.NORTH;
 
         this.obstaclePositions = obstaclePositions != null ? obstaclePositions : new ArrayList();
+    }
+
+    @NotNull
+    private Position getInitialPosition() {
+        return new Position(0, 0);
     }
 
     public String execute(String commands) {
