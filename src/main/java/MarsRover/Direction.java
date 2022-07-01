@@ -1,9 +1,14 @@
 package MarsRover;
 
 public enum Direction {
-    NORTH, EAST, SOUTH, WEST;
+    NORTH("N"), EAST("E"), SOUTH("S"), WEST("W");
 
+    private final String value;
     static private final Direction[] values = values();
+
+    Direction(String value) {
+        this.value = value;
+    }
 
     public final Direction right() {
         return values[(ordinal() + 1) % values.length];
@@ -14,6 +19,6 @@ public enum Direction {
     }
 
     public final String toString() {
-        return this.name().substring(0, 1);
+        return this.value;
     }
 }
