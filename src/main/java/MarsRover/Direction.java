@@ -12,4 +12,8 @@ public enum Direction {
     public final Direction prev() {
         return values[(ordinal() - 1 + values.length) % values.length];
     }
+
+    public final String toString() {
+        return this.name().substring(0, 1);
+    }
 }
