@@ -14,13 +14,18 @@ public class MarsRover {
     private Position currentPosition;
     private Direction currentDirection;
 
-    private ArrayList obstaclePositions;
+    private final ArrayList obstaclePositions;
 
     public MarsRover(ArrayList obstaclePositions) {
         currentPosition = getInitialPosition();
-        currentDirection = Direction.NORTH;
+        currentDirection = getInitialDirection();
 
         this.obstaclePositions = obstaclePositions != null ? obstaclePositions : new ArrayList();
+    }
+
+    @NotNull
+    private Direction getInitialDirection() {
+        return Direction.NORTH;
     }
 
     @NotNull
