@@ -26,12 +26,15 @@ public class MarsRover {
     }
 
     public String execute(String commands) {
+        String prefix = "";
+
         try {
             tryToExecute(commands);
         } catch (ObstacleFoundException e) {
-
-            return OBSTACLE_MARKER + OUTPUT_SEPARATOR + currentPosition.toString() + OUTPUT_SEPARATOR + currentDirection;
+            prefix = OBSTACLE_MARKER + OUTPUT_SEPARATOR;
         }
+
+        return prefix + currentPosition.toString() + OUTPUT_SEPARATOR + currentDirection;
     }
 
     private void tryToExecute(String commands) throws ObstacleFoundException {
