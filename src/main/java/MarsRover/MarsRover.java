@@ -66,11 +66,11 @@ public class MarsRover {
     }
 
     private void turnRight() {
-        currentDirection = currentDirection.next();
+        currentDirection = currentDirection.right();
     }
 
     private void turnLeft() {
-        currentDirection = currentDirection.prev();
+        currentDirection = currentDirection.left();
     }
 
     private void move() throws ObstacleFoundException {

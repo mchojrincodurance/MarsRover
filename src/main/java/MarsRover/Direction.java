@@ -5,11 +5,11 @@ public enum Direction {
 
     static private final Direction[] values = values();
 
-    public final Direction next() {
+    public final Direction right() {
         return values[(ordinal() + 1) % values.length];
     }
 
-    public final Direction prev() {
+    public final Direction left() {
         return values[(ordinal() - 1 + values.length) % values.length];
     }
 
