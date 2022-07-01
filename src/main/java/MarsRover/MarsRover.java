@@ -75,11 +75,9 @@ public class MarsRover {
 
     private boolean isObstacle(Position newPosition) {
 
-        boolean b = obstaclePositions.stream().anyMatch(
+        return obstaclePositions.stream().anyMatch(
                 item -> ((Position)item).equals(newPosition)
         );
-
-        return b;
     }
 
     private void moveWest() throws ObstacleFoundException {
