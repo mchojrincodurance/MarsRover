@@ -3,12 +3,10 @@ package MarsRover;
 public final class Position {
     private final int x;
     private final int y;
-    private final char direction;
 
-    public Position(int x, int y, char direction) {
+    public Position(int x, int y) {
         this.x = x;
         this.y = y;
-        this.direction = direction;
     }
 
     public int x() {
@@ -19,12 +17,13 @@ public final class Position {
         return y;
     }
 
-    public char direction() {
-        return direction;
-    }
-
     public String toString()
     {
-        return x + ":" + y + ":" + direction;
+        return x + ":" + y;
+    }
+
+    public boolean equals(Position otherPosition)
+    {
+        return this.x == otherPosition.x && this.y == otherPosition.y;
     }
 }

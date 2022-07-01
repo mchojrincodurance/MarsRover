@@ -1,23 +1,35 @@
 package MarsRover;
 
+import java.util.ArrayList;
+
 public class MarsRover {
 
     private Position currentPosition;
+    private char currentDirection;
 
-    public MarsRover() {
-        currentPosition = new Position(0, 0, 'N');
+    private ArrayList obstaclePositions;
+
+    public MarsRover(ArrayList obstaclePositions) {
+        currentPosition = new Position(0, 0);
+        currentDirection = 'N';
+
+        this.obstaclePositions = obstaclePositions != null ? obstaclePositions : new ArrayList();
     }
 
     public String execute(String commands) {
+        try {
+            for (char command : commands.toCharArray()) {
+                executeCommand(command);
+            }
 
-        for (char command : commands.toCharArray()) {
-            executeCommand(command);
+            return currentPosition.toString() + ":" + currentDirection;
+        } catch (ObstacleFoundException e) {
+
+            return "O:" + currentPosition.toString() + ":" + currentDirection;
         }
-
-        return currentPosition.toString();
     }
 
-    private void executeCommand(char command) {
+    private void executeCommand(char command) throws ObstacleFoundException {
         switch (command) {
             case 'M':
                 move();
@@ -32,49 +44,41 @@ public class MarsRover {
     }
 
     private void turnRight() {
-        char newDirection = 'N';
-
-        switch (currentPosition.direction()) {
+        switch (currentDirection) {
             case 'N':
-                newDirection = 'E';
+                currentDirection = 'E';
                 break;
             case 'E':
-                newDirection = 'S';
+                currentDirection = 'S';
                 break;
             case 'S':
-                newDirection = 'W';
+                currentDirection = 'W';
                 break;
             case 'W':
-                newDirection = 'N';
+                currentDirection = 'N';
                 break;
         }
-
-        currentPosition = new Position(currentPosition.x(), currentPosition.y(), newDirection);
     }
 
     private void turnLeft() {
-        char newDirection = 'N';
-
-        switch (currentPosition.direction()) {
+        switch (currentDirection) {
             case 'N':
-                newDirection = 'W';
+                currentDirection = 'W';
                 break;
             case 'W':
-                newDirection = 'S';
+                currentDirection = 'S';
                 break;
             case 'S':
-                newDirection = 'E';
+                currentDirection = 'E';
                 break;
             case 'E':
-                newDirection = 'N';
+                currentDirection = 'N';
                 break;
         }
-
-        currentPosition = new Position(currentPosition.x(), currentPosition.y(), newDirection);
     }
 
-    private void move() {
-        switch (currentPosition.direction()) {
+    private void move() throws ObstacleFoundException {
+        switch (currentDirection) {
             case 'N':
                 moveNorth();
                 break;
@@ -90,31 +94,64 @@ public class MarsRover {
         }
     }
 
-    private void moveWest() {
-        currentPosition = new Position(
+    private boolean isObstacle(Position newPosition) {
+
+        boolean b = obstaclePositions.stream().anyMatch(
+                item -> ((Position)item).equals(newPosition)
+        );
+
+        return b;
+    }
+
+    private void moveWest() throws ObstacleFoundException {
+        Position newPosition = new Position(
                 currentPosition.x() > 0 ? currentPosition.x() - 1 : 9,
-                currentPosition.y(),
-                currentPosition.direction());
+                currentPosition.y());
+
+        if (!isObstacle(newPosition)) {
+            currentPosition = newPosition;
+        } else {
+
+            throw new ObstacleFoundException();
+        }
     }
 
-    private void moveEast() {
-        currentPosition = new Position(
+    private void moveEast() throws ObstacleFoundException {
+        Position newPosition = new Position(
                 currentPosition.x() < 9 ? currentPosition.x() + 1 : 0,
-                currentPosition.y(),
-                currentPosition.direction());
+                currentPosition.y());
+
+        if (!isObstacle(newPosition)) {
+            currentPosition = newPosition;
+        } else {
+
+            throw new ObstacleFoundException();
+        }
     }
 
-    private void moveSouth() {
-        currentPosition = new Position(
+    private void moveSouth() throws ObstacleFoundException {
+        Position newPosition = new Position(
                 currentPosition.x(),
-                currentPosition.y() > 0 ? currentPosition.y() - 1 : 9,
-                currentPosition.direction());
+                currentPosition.y() > 0 ? currentPosition.y() - 1 : 9);
+
+        if (!isObstacle(newPosition)) {
+            currentPosition = newPosition;
+        } else {
+
+            throw new ObstacleFoundException();
+        }
     }
 
-    private void moveNorth() {
-        currentPosition = new Position(
+    private void moveNorth() throws ObstacleFoundException {
+        Position newPosition = new Position(
                 currentPosition.x(),
-                currentPosition.y() < 9 ? currentPosition.y() + 1 : 0,
-                currentPosition.direction());
+                currentPosition.y() < 9 ? currentPosition.y() + 1 : 0);
+
+        if (!isObstacle(newPosition)) {
+            currentPosition = newPosition;
+        } else {
+
+            throw new ObstacleFoundException();
+        }
     }
 }
