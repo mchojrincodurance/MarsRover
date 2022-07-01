@@ -11,6 +11,8 @@ public class MarsRover {
     public static final char ACTION_MOVE = 'M';
     public static final char ACTION_TURN_LEFT = 'L';
     public static final char ACTION_TURN_RIGHT = 'R';
+    public static final int LOWER_GRID_BOUND = 0;
+    public static final int UPPER_GRID_BOUND = 9;
     private Position currentPosition;
     private Direction currentDirection;
 
@@ -44,7 +46,7 @@ public class MarsRover {
     @NotNull
     private Position getInitialPosition() {
 
-        return new Position(0, 0);
+        return new Position(LOWER_GRID_BOUND, LOWER_GRID_BOUND);
     }
 
 
@@ -83,7 +85,7 @@ public class MarsRover {
 
     private void moveWest() throws ObstacleFoundException {
         updatePosition(new Position(
-                currentPosition.x() > 0 ? currentPosition.x() - 1 : 9,
+                currentPosition.x() > LOWER_GRID_BOUND ? currentPosition.x() - 1 : UPPER_GRID_BOUND,
                 currentPosition.y()));
     }
 
@@ -98,19 +100,19 @@ public class MarsRover {
 
     private void moveEast() throws ObstacleFoundException {
         updatePosition(new Position(
-                currentPosition.x() < 9 ? currentPosition.x() + 1 : 0,
+                currentPosition.x() < UPPER_GRID_BOUND ? currentPosition.x() + 1 : LOWER_GRID_BOUND,
                 currentPosition.y()));
     }
 
     private void moveSouth() throws ObstacleFoundException {
         updatePosition(new Position(
                 currentPosition.x(),
-                currentPosition.y() > 0 ? currentPosition.y() - 1 : 9));
+                currentPosition.y() > LOWER_GRID_BOUND ? currentPosition.y() - 1 : UPPER_GRID_BOUND));
     }
 
     private void moveNorth() throws ObstacleFoundException {
         updatePosition(new Position(
                 currentPosition.x(),
-                currentPosition.y() < 9 ? currentPosition.y() + 1 : 0));
+                currentPosition.y() < UPPER_GRID_BOUND ? currentPosition.y() + 1 : LOWER_GRID_BOUND));
     }
 }
