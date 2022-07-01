@@ -13,16 +13,17 @@ public class MarsRover {
     public static final char ACTION_TURN_RIGHT = 'R';
     public static final int LOWER_GRID_BOUND = 0;
     public static final int UPPER_GRID_BOUND = 9;
-    private Position currentPosition;
-    private Direction currentDirection;
+    private Position currentPosition = getInitialPosition();
+    private Direction currentDirection = getInitialDirection();
 
     private final ArrayList obstaclePositions;
 
-    public MarsRover(ArrayList obstaclePositions) {
-        currentPosition = getInitialPosition();
-        currentDirection = getInitialDirection();
+    public MarsRover() {
+        obstaclePositions = new ArrayList();
+    }
 
-        this.obstaclePositions = obstaclePositions != null ? obstaclePositions : new ArrayList();
+    public MarsRover(@NotNull ArrayList obstaclePositions) {
+        this.obstaclePositions = obstaclePositions;
     }
 
     public String execute(String commands) {
@@ -56,7 +57,6 @@ public class MarsRover {
     }
 
 
-
     private void tryToExecute(char command) throws ObstacleFoundException {
         switch (command) {
             case ACTION_MOVE -> move();
@@ -85,7 +85,7 @@ public class MarsRover {
     private boolean isObstacle(Position newPosition) {
 
         return obstaclePositions.stream().anyMatch(
-                item -> ((Position)item).equals(newPosition)
+                item -> ((Position) item).equals(newPosition)
         );
     }
 
