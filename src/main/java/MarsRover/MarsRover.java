@@ -4,7 +4,7 @@ public class MarsRover {
 
     private Position currentPosition;
 
-    public MarsRover(Grid grid1) {
+    public MarsRover() {
         currentPosition = new Position(0, 0, 'N');
     }
 

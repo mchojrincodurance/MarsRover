@@ -3,6 +3,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.util.concurrent.Executor;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -10,11 +11,9 @@ import static org.junit.jupiter.api.Assertions.*;
 public class MarsRoverShould {
     @ParameterizedTest
     @MethodSource("providerWrapAroundCommands")
-    public void wrap_around_when_reaching_the_end_of_the_grid(String endPosition, String commands)
-    {
-        Grid grid = new Grid();
-        MarsRover marsRover = new MarsRover(new Grid());
-        assertEquals(endPosition, marsRover.execute(commands));
+    public void wrap_around_when_reaching_the_end_of_the_grid(String expectedOutput, String commands) {
+        MarsRover marsRover = new MarsRover();
+        assertEquals(expectedOutput, marsRover.execute(commands));
     }
 
     private static Stream<Arguments> providerWrapAroundCommands() {
