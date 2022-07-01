@@ -27,16 +27,19 @@ public class MarsRover {
 
     public String execute(String commands) {
         try {
-            for (char command : commands.toCharArray()) {
-                executeCommand(command);
-            }
-
-            return currentPosition.toString() + OUTPUT_SEPARATOR + currentDirection;
+            tryToExecute(commands);
         } catch (ObstacleFoundException e) {
 
             return OBSTACLE_MARKER + OUTPUT_SEPARATOR + currentPosition.toString() + OUTPUT_SEPARATOR + currentDirection;
         }
     }
+
+    private void tryToExecute(String commands) throws ObstacleFoundException {
+        for (char command : commands.toCharArray()) {
+            tryToExecute(command);
+        }
+    }
+
     @NotNull
     private Direction getInitialDirection() {
 
@@ -51,7 +54,7 @@ public class MarsRover {
 
 
 
-    private void executeCommand(char command) throws ObstacleFoundException {
+    private void tryToExecute(char command) throws ObstacleFoundException {
         switch (command) {
             case ACTION_MOVE -> move();
             case ACTION_TURN_LEFT -> turnLeft();
