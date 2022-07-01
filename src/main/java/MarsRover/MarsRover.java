@@ -4,6 +4,11 @@ import java.util.ArrayList;
 
 public class MarsRover {
 
+    public static final String OUTPUT_SEPARATOR = ":";
+    public static final String OBSTACLE_MARKER = "O";
+    public static final char ACTION_MOVE = 'M';
+    public static final char ACTION_TURN_LEFT = 'L';
+    public static final char ACTION_TURN_RIGHT = 'R';
     private Position currentPosition;
     private Direction currentDirection;
 
@@ -22,22 +27,22 @@ public class MarsRover {
                 executeCommand(command);
             }
 
-            return currentPosition.toString() + ":" + currentDirection;
+            return currentPosition.toString() + OUTPUT_SEPARATOR + currentDirection;
         } catch (ObstacleFoundException e) {
 
-            return "O:" + currentPosition.toString() + ":" + currentDirection;
+            return OBSTACLE_MARKER + OUTPUT_SEPARATOR + currentPosition.toString() + OUTPUT_SEPARATOR + currentDirection;
         }
     }
 
     private void executeCommand(char command) throws ObstacleFoundException {
         switch (command) {
-            case 'M':
+            case ACTION_MOVE:
                 move();
                 break;
-            case 'L':
+            case ACTION_TURN_LEFT:
                 turnLeft();
                 break;
-            case 'R':
+            case ACTION_TURN_RIGHT:
                 turnRight();
                 break;
         }
