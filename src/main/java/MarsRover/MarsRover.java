@@ -12,22 +12,12 @@ public class MarsRover {
     public static final char ACTION_TURN_LEFT = 'L';
     public static final char ACTION_TURN_RIGHT = 'R';
     public static final int LOWER_GRID_BOUND = 0;
-    public static final int UPPER_GRID_BOUND = 9;
     private final Grid grid;
     private Position currentPosition = getInitialPosition();
     private Direction currentDirection = getInitialDirection();
 
-    private final ArrayList obstaclePositions;
-
     public MarsRover(Grid grid) {
         this.grid = grid;
-
-        obstaclePositions = new ArrayList();
-    }
-
-    public MarsRover(Grid grid, @NotNull ArrayList obstaclePositions) {
-        this.grid = grid;
-        this.obstaclePositions = obstaclePositions;
     }
 
     public String execute(String commands) {
@@ -86,45 +76,5 @@ public class MarsRover {
         }
 
         currentPosition = nextPosition;
-    }
-
-    public boolean isObstacle(Position newPosition) {
-
-        return obstaclePositions.stream().anyMatch(
-                item -> ((Position) item).equals(newPosition)
-        );
-    }
-
-    private void moveWest() throws ObstacleFoundException {
-        updatePosition(new Position(
-                currentPosition.x() > LOWER_GRID_BOUND ? currentPosition.x() - 1 : UPPER_GRID_BOUND,
-                currentPosition.y()));
-    }
-
-    private void updatePosition(Position newPosition) throws ObstacleFoundException {
-        if (!isObstacle(newPosition)) {
-            currentPosition = newPosition;
-        } else {
-
-            throw new ObstacleFoundException();
-        }
-    }
-
-    private void moveEast() throws ObstacleFoundException {
-        updatePosition(new Position(
-                currentPosition.x() < UPPER_GRID_BOUND ? currentPosition.x() + 1 : LOWER_GRID_BOUND,
-                currentPosition.y()));
-    }
-
-    private void moveSouth() throws ObstacleFoundException {
-        updatePosition(new Position(
-                currentPosition.x(),
-                currentPosition.y() > LOWER_GRID_BOUND ? currentPosition.y() - 1 : UPPER_GRID_BOUND));
-    }
-
-    private void moveNorth() throws ObstacleFoundException {
-        updatePosition(new Position(
-                currentPosition.x(),
-                currentPosition.y() < UPPER_GRID_BOUND ? currentPosition.y() + 1 : LOWER_GRID_BOUND));
     }
 }
