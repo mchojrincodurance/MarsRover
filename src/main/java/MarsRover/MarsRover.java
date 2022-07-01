@@ -48,15 +48,9 @@ public class MarsRover {
 
     private void executeCommand(char command) throws ObstacleFoundException {
         switch (command) {
-            case ACTION_MOVE:
-                move();
-                break;
-            case ACTION_TURN_LEFT:
-                turnLeft();
-                break;
-            case ACTION_TURN_RIGHT:
-                turnRight();
-                break;
+            case ACTION_MOVE -> move();
+            case ACTION_TURN_LEFT -> turnLeft();
+            case ACTION_TURN_RIGHT -> turnRight();
         }
     }
 
@@ -70,18 +64,10 @@ public class MarsRover {
 
     private void move() throws ObstacleFoundException {
         switch (currentDirection) {
-            case NORTH:
-                moveNorth();
-                break;
-            case SOUTH:
-                moveSouth();
-                break;
-            case EAST:
-                moveEast();
-                break;
-            case WEST:
-                moveWest();
-                break;
+            case NORTH -> moveNorth();
+            case SOUTH -> moveSouth();
+            case EAST -> moveEast();
+            case WEST -> moveWest();
         }
     }
 
