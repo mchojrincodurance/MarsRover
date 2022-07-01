@@ -86,6 +86,10 @@ public class MarsRover {
                 currentPosition.x() > 0 ? currentPosition.x() - 1 : 9,
                 currentPosition.y());
 
+        updatePosition(newPosition);
+    }
+
+    private void updatePosition(Position newPosition) throws ObstacleFoundException {
         if (!isObstacle(newPosition)) {
             currentPosition = newPosition;
         } else {
@@ -99,12 +103,7 @@ public class MarsRover {
                 currentPosition.x() < 9 ? currentPosition.x() + 1 : 0,
                 currentPosition.y());
 
-        if (!isObstacle(newPosition)) {
-            currentPosition = newPosition;
-        } else {
-
-            throw new ObstacleFoundException();
-        }
+        updatePosition(newPosition);
     }
 
     private void moveSouth() throws ObstacleFoundException {
@@ -112,12 +111,7 @@ public class MarsRover {
                 currentPosition.x(),
                 currentPosition.y() > 0 ? currentPosition.y() - 1 : 9);
 
-        if (!isObstacle(newPosition)) {
-            currentPosition = newPosition;
-        } else {
-
-            throw new ObstacleFoundException();
-        }
+        updatePosition(newPosition);
     }
 
     private void moveNorth() throws ObstacleFoundException {
@@ -125,11 +119,6 @@ public class MarsRover {
                 currentPosition.x(),
                 currentPosition.y() < 9 ? currentPosition.y() + 1 : 0);
 
-        if (!isObstacle(newPosition)) {
-            currentPosition = newPosition;
-        } else {
-
-            throw new ObstacleFoundException();
-        }
+        updatePosition(newPosition);
     }
 }
