@@ -23,16 +23,6 @@ public class MarsRover {
         this.obstaclePositions = obstaclePositions != null ? obstaclePositions : new ArrayList();
     }
 
-    @NotNull
-    private Direction getInitialDirection() {
-        return Direction.NORTH;
-    }
-
-    @NotNull
-    private Position getInitialPosition() {
-        return new Position(0, 0);
-    }
-
     public String execute(String commands) {
         try {
             for (char command : commands.toCharArray()) {
@@ -45,6 +35,19 @@ public class MarsRover {
             return OBSTACLE_MARKER + OUTPUT_SEPARATOR + currentPosition.toString() + OUTPUT_SEPARATOR + currentDirection;
         }
     }
+    @NotNull
+    private Direction getInitialDirection() {
+
+        return Direction.NORTH;
+    }
+
+    @NotNull
+    private Position getInitialPosition() {
+
+        return new Position(0, 0);
+    }
+
+
 
     private void executeCommand(char command) throws ObstacleFoundException {
         switch (command) {
