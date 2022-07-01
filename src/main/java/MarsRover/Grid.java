@@ -22,7 +22,7 @@ public class Grid {
         this.cols = cols;
     }
 
-    Grid(List obstaclePositions)
+    public Grid(List obstaclePositions)
     {
         this.obstaclePositions = obstaclePositions;
     }
@@ -33,10 +33,10 @@ public class Grid {
         this.obstaclePositions = obstaclePositions;
     }
 
-    public boolean isObstacle(Position newPosition) {
+    public boolean isObstacle(Position candidate) {
 
         return obstaclePositions.stream().anyMatch(
-                item -> ((Position) item).equals(newPosition)
+                item -> ((Position) item).equals(candidate)
         );
     }
 

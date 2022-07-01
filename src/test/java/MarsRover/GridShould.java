@@ -1,7 +1,10 @@
 package MarsRover;
 
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+
+import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -24,5 +27,12 @@ class GridShould {
                         new Position(Integer.valueOf(currentPosition.substring(0, 1)), Integer.valueOf(currentPosition.substring(2, 3))),
                         Direction.valueOf(direction))
         );
+    }
+
+    @Test
+    public void recognize_obstacles()
+    {
+        Grid grid = new Grid(Arrays.asList(new Position(0, 3 )));
+        assertTrue(grid.isObstacle(new Position(0, 3 )));
     }
 }
