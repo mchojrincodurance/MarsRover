@@ -13,16 +13,20 @@ public class MarsRover {
     public static final char ACTION_TURN_RIGHT = 'R';
     public static final int LOWER_GRID_BOUND = 0;
     public static final int UPPER_GRID_BOUND = 9;
+    private final Grid grid;
     private Position currentPosition = getInitialPosition();
     private Direction currentDirection = getInitialDirection();
 
     private final ArrayList obstaclePositions;
 
-    public MarsRover() {
+    public MarsRover(Grid grid) {
+        this.grid = grid;
+
         obstaclePositions = new ArrayList();
     }
 
-    public MarsRover(@NotNull ArrayList obstaclePositions) {
+    public MarsRover(Grid grid, @NotNull ArrayList obstaclePositions) {
+        this.grid = grid;
         this.obstaclePositions = obstaclePositions;
     }
 
@@ -82,7 +86,7 @@ public class MarsRover {
         }
     }
 
-    private boolean isObstacle(Position newPosition) {
+    public boolean isObstacle(Position newPosition) {
 
         return obstaclePositions.stream().anyMatch(
                 item -> ((Position) item).equals(newPosition)

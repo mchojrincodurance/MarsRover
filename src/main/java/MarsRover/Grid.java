@@ -12,7 +12,7 @@ public class Grid {
 
     private List obstaclePositions = Collections.emptyList();
 
-    Grid()
+    public Grid()
     {
     }
 

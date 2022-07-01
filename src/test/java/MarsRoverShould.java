@@ -13,7 +13,7 @@ public class MarsRoverShould {
     @ParameterizedTest
     @MethodSource("providerGridWithObstacles")
     public void stop_when_bumping_into_obstacles(ArrayList obstaclePositions, String expectedOutput, String commands) {
-        MarsRover marsRover = new MarsRover(obstaclePositions);
+        MarsRover marsRover = new MarsRover(new Grid(), obstaclePositions);
         assertEquals(expectedOutput, marsRover.execute(commands));
     }
     @ParameterizedTest
@@ -25,7 +25,7 @@ public class MarsRoverShould {
             "0:0:N,MMMMMMMMMM",
     })
     public void wrap_around_when_reaching_the_end_of_the_grid(String expectedOutput, String commands) {
-        MarsRover marsRover = new MarsRover();
+        MarsRover marsRover = new MarsRover(new Grid());
         assertEquals(expectedOutput, marsRover.execute(commands));
     }
 
@@ -42,7 +42,7 @@ public class MarsRoverShould {
     @Test
     public void stay_still_if_no_commands_are_issued()
     {
-        MarsRover rover = new MarsRover();
+        MarsRover rover = new MarsRover(new Grid());
         assertEquals("0:0:N", rover.execute(""));
     }
 
@@ -55,7 +55,7 @@ public class MarsRoverShould {
 
     public void move_in_the_expected_direction(String expectedOutput, String commands)
     {
-        MarsRover rover = new MarsRover();
+        MarsRover rover = new MarsRover(new Grid());
         assertEquals(expectedOutput, rover.execute(commands));
     }
 
@@ -69,7 +69,7 @@ public class MarsRoverShould {
 
     public void rotate(String expectedOutput, String commands)
     {
-        MarsRover rover = new MarsRover();
+        MarsRover rover = new MarsRover(new Grid());
         assertEquals(expectedOutput, rover.execute(commands));
     }
 }
