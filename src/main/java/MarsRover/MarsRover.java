@@ -5,13 +5,13 @@ import java.util.ArrayList;
 public class MarsRover {
 
     private Position currentPosition;
-    private char currentDirection;
+    private Direction currentDirection;
 
     private ArrayList obstaclePositions;
 
     public MarsRover(ArrayList obstaclePositions) {
         currentPosition = new Position(0, 0);
-        currentDirection = 'N';
+        currentDirection = Direction.NORTH;
 
         this.obstaclePositions = obstaclePositions != null ? obstaclePositions : new ArrayList();
     }
@@ -44,51 +44,25 @@ public class MarsRover {
     }
 
     private void turnRight() {
-        switch (currentDirection) {
-            case 'N':
-                currentDirection = 'E';
-                break;
-            case 'E':
-                currentDirection = 'S';
-                break;
-            case 'S':
-                currentDirection = 'W';
-                break;
-            case 'W':
-                currentDirection = 'N';
-                break;
-        }
+        currentDirection = currentDirection.next();
     }
 
     private void turnLeft() {
-        switch (currentDirection) {
-            case 'N':
-                currentDirection = 'W';
-                break;
-            case 'W':
-                currentDirection = 'S';
-                break;
-            case 'S':
-                currentDirection = 'E';
-                break;
-            case 'E':
-                currentDirection = 'N';
-                break;
-        }
+        currentDirection = currentDirection.prev();
     }
 
     private void move() throws ObstacleFoundException {
         switch (currentDirection) {
-            case 'N':
+            case NORTH:
                 moveNorth();
                 break;
-            case 'S':
+            case SOUTH:
                 moveSouth();
                 break;
-            case 'E':
+            case EAST:
                 moveEast();
                 break;
-            case 'W':
+            case WEST:
                 moveWest();
                 break;
         }
