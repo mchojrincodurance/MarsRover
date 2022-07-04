@@ -12,24 +12,20 @@ public class MarsRover {
 
     public String execute(String commands) {
         for (char command : commands.toCharArray()) {
-            executeCommand(command);
+            switch (command) {
+                case 'M':
+                    move();
+                    break;
+                case 'L':
+                    turnLeft();
+                    break;
+                case 'R':
+                    turnRight();
+                    break;
+            }
         }
 
         return currentPosition.toString() + ":" + currentDirection;
-    }
-
-    private void executeCommand(char command) {
-        switch (command) {
-            case 'M':
-                move();
-                break;
-            case 'L':
-                turnLeft();
-                break;
-            case 'R':
-                turnRight();
-                break;
-        }
     }
 
     private void turnRight() {
@@ -67,50 +63,30 @@ public class MarsRover {
     }
 
     private void move() {
+        Position newPosition = currentPosition;
+
         switch (currentDirection) {
             case 'N':
-                moveNorth();
+                newPosition = new Position(
+                        currentPosition.x(),
+                        currentPosition.y() < 9 ? currentPosition.y() + 1 : 0);
                 break;
             case 'S':
-                moveSouth();
+                newPosition = new Position(
+                        currentPosition.x(),
+                        currentPosition.y() > 0 ? currentPosition.y() - 1 : 9);
                 break;
             case 'E':
-                moveEast();
+                newPosition = new Position(
+                        currentPosition.x() < 9 ? currentPosition.x() + 1 : 0,
+                        currentPosition.y());
                 break;
             case 'W':
-                moveWest();
+                newPosition = new Position(
+                        currentPosition.x() > 0 ? currentPosition.x() - 1 : 9,
+                        currentPosition.y());
                 break;
         }
-    }
-
-    private void moveWest() {
-        Position newPosition = new Position(
-                currentPosition.x() > 0 ? currentPosition.x() - 1 : 9,
-                currentPosition.y());
-
-        currentPosition = newPosition;
-    }
-
-    private void moveEast() {
-        Position newPosition = new Position(
-                currentPosition.x() < 9 ? currentPosition.x() + 1 : 0,
-                currentPosition.y());
-
-        currentPosition = newPosition;
-    }
-
-    private void moveSouth() {
-        Position newPosition = new Position(
-                currentPosition.x(),
-                currentPosition.y() > 0 ? currentPosition.y() - 1 : 9);
-
-        currentPosition = newPosition;
-    }
-
-    private void moveNorth() {
-        Position newPosition = new Position(
-                currentPosition.x(),
-                currentPosition.y() < 9 ? currentPosition.y() + 1 : 0);
 
         currentPosition = newPosition;
     }
