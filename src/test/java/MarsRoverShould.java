@@ -32,4 +32,17 @@ public class MarsRoverShould {
 
         assertEquals(endPosition, rover.execute(commands));
     }
+
+    @ParameterizedTest
+    @CsvSource({
+            "0:0:E,RMMMMMMMMMM",
+            "0:0:W,LMMMMMMMMMM",
+            "0:0:S,RRMMMMMMMMMM",
+            "0:1:N,MMMMMMMMMMM",
+            "0:0:N,MMMMMMMMMM",
+    })
+    public void wrap_around_when_reaching_the_end_of_the_grid(String expectedOutput, String commands) {
+        MarsRover marsRover = new MarsRover();
+        assertEquals(expectedOutput, marsRover.execute(commands));
+    }
 }
