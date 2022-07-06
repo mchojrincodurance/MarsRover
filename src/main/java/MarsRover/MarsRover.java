@@ -1,11 +1,16 @@
 package MarsRover;
 
+import MarsRover.direction.Direction;
+import MarsRover.direction.North;
+
 import java.util.ArrayList;
 
 public class MarsRover {
 
     private Position currentPosition;
     private char currentDirection;
+
+    private Direction direction = new North();
 
     private ArrayList obstaclePositions;
 
@@ -22,10 +27,10 @@ public class MarsRover {
                 executeCommand(command);
             }
 
-            return currentPosition.toString() + ":" + currentDirection;
+            return currentPosition.toString() + ":" + direction;
         } catch (ObstacleFoundException e) {
 
-            return "O:" + currentPosition.toString() + ":" + currentDirection;
+            return "O:" + currentPosition.toString() + ":" + direction;
         }
     }
 
@@ -35,44 +40,10 @@ public class MarsRover {
                 move();
                 break;
             case 'L':
-                turnLeft();
+                direction = direction.moveLeft();
                 break;
             case 'R':
-                turnRight();
-                break;
-        }
-    }
-
-    private void turnRight() {
-        switch (currentDirection) {
-            case 'N':
-                currentDirection = 'E';
-                break;
-            case 'E':
-                currentDirection = 'S';
-                break;
-            case 'S':
-                currentDirection = 'W';
-                break;
-            case 'W':
-                currentDirection = 'N';
-                break;
-        }
-    }
-
-    private void turnLeft() {
-        switch (currentDirection) {
-            case 'N':
-                currentDirection = 'W';
-                break;
-            case 'W':
-                currentDirection = 'S';
-                break;
-            case 'S':
-                currentDirection = 'E';
-                break;
-            case 'E':
-                currentDirection = 'N';
+                direction = direction.moveRight();
                 break;
         }
     }
